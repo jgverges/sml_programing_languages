@@ -1,9 +1,11 @@
-
+(* 1 *)
 fun is_older (firstDate :int*int*int, secondDate : int*int*int) =
      #1 firstDate < #1 secondDate orelse 
     (#1 firstDate = #1 secondDate andalso #2 firstDate < #2 secondDate) orelse 
     (#1 firstDate = #1 secondDate andalso #2 firstDate = #2 secondDate) andalso #3 firstDate < #3 secondDate
 
+
+(* 2 *)
 fun number_in_month( dateList : (int*int*int)list , month : int)=
     let
     fun search_month(count:int, dateList:(int*int*int)list)=
@@ -13,8 +15,16 @@ fun number_in_month( dateList : (int*int*int)list , month : int)=
     in
         search_month(0, dateList)
     end
+    (* count is not necessary, we can do counters just by adding 1+ recusive function *)
+fun number_in_month_model (dates : (int * int * int) list, month : int) =
+    if null dates
+    then 0
+    else if #2 (hd dates) = month
+    then 1 + number_in_month_model(tl dates, month)
+    else number_in_month_model(tl dates, month) 
 
 
+(* 3*)
 fun number_in_months( dateList : (int*int*int)list, months : int list)= 
     let
     fun search_by_month(count:int, months)=
@@ -24,7 +34,16 @@ fun number_in_months( dateList : (int*int*int)list, months : int list)=
     in
       search_by_month(0, months)
     end
+    (* model *)
+fun number_in_months(dates : (int * int * int) list, months : int list) =
+    if null months
+    then 0
+    else number_in_month(dates, hd months) + number_in_months(dates, tl months)
 
+
+
+
+(* 4 *)
 fun dates_in_month (dateList : (int*int*int)list , month : int)=
     let
     fun append_dates(dates:(int*int*int)list, date : (int*int*int)list)=   
@@ -35,8 +54,7 @@ fun dates_in_month (dateList : (int*int*int)list , month : int)=
     fun search_month(count:(int*int*int)list, dateList:(int*int*int)list)=
         if null dateList
         then tl count
-        else search_month(if #2(hd dateList)= month then append_dates(count,[(hd dateList)])else count, 
-                         tl dateList)
+        else search_month(if #2(hd dateList)= month then append_dates(count,[(hd dateList)])else count, tl dateList)
     in
         search_month( [(1,1,1)] , dateList)  
     end
