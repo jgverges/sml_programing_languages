@@ -1,0 +1,6 @@
+ctrl-X
+ctrl-F
+
+(* abrir terminal *)
+Ctrl C
+Ctrl S

@@ -1,0 +1,3 @@
+>sml
+
+-use "test.sml";
