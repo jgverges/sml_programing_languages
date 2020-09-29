@@ -36,3 +36,16 @@ fun month_range (day1:int, day2: int)=
     then []
     else what_month(day1):: month_range( day1+1, day2)
         
+(* alternate : int list -> int *)
+fun alternate(numbers_list:int list)=
+    if null numbers_list
+    then 0
+    else hd numbers_list + (alternate(tl numbers_list) * ~1)
+
+fun count(lst: int list)=
+    if null lst
+    then 0
+    else 1 + count(tl lst )
+       
+
+

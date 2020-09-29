@@ -8,8 +8,8 @@ fun number_in_month(dates : (int * int * int) list, month : int) =
     if null dates
     then 0
     else if #2 (hd dates) = month
-    then 1 + number_in_month(tl dates, month)
-    else number_in_month(tl dates, month) 
+        then 1 + number_in_month(tl dates, month)
+        else number_in_month(tl dates, month) 
 
 
 fun number_in_months(dates : (int * int * int) list, monthsList : int list) =
@@ -29,7 +29,9 @@ fun dates_in_months(dateList : (int*int*int)list , monthsList : int list)=
     if null monthsList
     then []
     else dates_in_month(dateList, hd monthsList) :: dates_in_months(dateList, tl monthsList)
-    
+    (* Cannot append two lists with "::" (cons opearator). Should use "@" instead.
+     Add space between the name of the function and brackets with arguments when declaring.*)
+
 fun get_nth (strings:string list, element:int)= 
     if  element = 0 orelse null strings
     then ""
