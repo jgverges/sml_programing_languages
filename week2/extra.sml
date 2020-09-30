@@ -115,4 +115,41 @@ fun zip (list1: int list, list2: int list)=
     then []
     else if null list2
         then []
-        else [(hd list1, hd list2)] @ zip (tl list1, tl list2)
+        else [(hd list1, hd list2)] @ zip (tl list1, tl list2) 
+
+(* 11. Challenge: Write a version zipRecycle of zip, where when one list is empty it starts recycling from its start 
+until the other list completes. For example: zipRecycle ([1,2,3], [1, 2, 3, 4, 5, 6, 7]) = 
+[(1,1), (2,2), (3, 3), (1,4), (2,5), (3,6), (1,7)]  *)
+fun zipRecycle (list1: int list, list2: int list)=
+let
+  fun recycle (list1_copy: int list, list1: int list, list2: int list)=
+    if null list2
+    then []
+    else if null list1
+        then [(hd list1_copy, hd list2)] @ recycle (list1_copy, tl list1_copy, tl list2) 
+        else [(hd list1, hd list2)] @ recycle (list1_copy, tl list1, tl list2)
+in
+    recycle(list1, list1, list2)
+end
+
+(* 12. Lesser challenge: Write a version zipOpt of zip with return type (int * int) list option. 
+This version should return SOME of a list when the original lists have the same length, and NONE if they do not.  *)
+fun list_length ( lst: int list)=
+    if null lst
+    then 0
+    else 1 + list_length(tl lst)
+
+fun zipOpt (list1: int list, list2: int list)=
+    if list_length list1 = list_length list2
+    then SOME (zip(list1,list2))
+    else NONE
+
+(* 13.  Write a function lookup : (string * int) list * string -> int option  that takes a list of pairs (s, i)
+and also a string s2 to look up. It then goes through the list of pairs looking for the string s2 in the first component.
+ If it finds a match with corresponding number i, then it returns SOME i. If it does not, it returns NONE. *)
+ fun lookup(lst: (string * int) list, s2: string)=
+    if null lst
+    then NONE
+    else if #1 (hd lst)= s2
+        then SOME (#2 (hd lst))
+        else  lookup(tl lst, s2)
